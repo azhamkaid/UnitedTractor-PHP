@@ -7,10 +7,8 @@
 <body>
 <div class="container">
     <?php
-    //Include file koneksi, untuk koneksikan ke database
     include "database.php";
 
-    //Cek apakah ada nilai yang dikirim menggunakan method GET dengan nama id_peserta
     if (isset($_GET['id'])) {
         $id = $_GET["id"];
         $sql = "SELECT * FROM mahasiswa WHERE id=$id";
@@ -18,7 +16,6 @@
         $data = mysqli_fetch_assoc($hasil);
     }
 
-    //Cek apakah ada kiriman form dari method post
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         {
                 $id = $_POST["id"];
@@ -26,17 +23,14 @@
                 $alamat = input($_POST["alamat"]);
                 $umur = $_POST["umur"];
 
-                //Query update data pada tabel mahasiswa
                 $sql = "UPDATE mahasiswa SET
                             nama='$nama',
                             alamat='$alamat',
                             umur=$umur
                             WHERE id=$id";
 
-                //Mengeksekusi atau menjalankan query diatas
                 $hasil = mysqli_query($kon, $sql);
 
-                //Kondisi apakah berhasil atau tidak dalam mengeksekusi query diatas
                 if ($hasil) {
                     header("Location:index.php");
                 } else {
